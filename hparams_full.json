@@ -1,0 +1,28 @@
+{
+    "name": "full",
+    "min_char_len": 5,
+    "max_char_len": 800,
+    "max_seq_len": 256,
+    "batch_size": 64,
+    "data_path": "<name>/data",
+    "model_path": "<name>/model.h5",
+    "identity_columns": ["male", "female", 
+                         "homosexual_gay_or_lesbian", 
+                         "christian", "jewish", 
+                         "muslim", "black", 
+                         "white", "psychiatric_or_mental_illness"],
+    "target_columns": ["target", "severe_toxicity", 
+                       "obscene", "threat", 
+                       "insult", "identity_attack", 
+                       "sexual_explicit"],
+
+    "train_test_coeff": 0.9,
+    "epochs": 10, 
+    "bert_output": "pooled",
+    "bert_output_alternative": "sequential",
+    "feed_uppercase_info": false,
+    "loss_weighting": true,
+    "predict": false
+}
+
+
