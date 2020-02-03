@@ -6,7 +6,9 @@ import numpy as np
 from bert.tokenization import FullTokenizer
 import time
 import re
-import hparams_loader
+import sys
+import json
+hparams = json.load(open(sys.argv[1]))
 
 MIN_CHAR_LEN = hparams['min_char_len']
 MAX_CHAR_LEN = hparams['max_char_len']
@@ -15,7 +17,12 @@ MAX_SEQ_LEN  = hparams['max_seq_len']
 class PreBertEncoder(object):
     def __init__(self, dataset_path = 'train.csv'):
         self.dataset = pd.read_csv(dataset_path)
-
+        for _, row in self.dataset.iterrows():
+            if row['target'] > 0.8:
+                print("==================================================================")
+                print("==================================================================")
+                print("==================================================================")
+                print(row['comment_text'])
     @staticmethod
     def CalcUppercasePercentage(st):
         count = 0
@@ -164,10 +171,10 @@ class PreBertEncoder(object):
         print("Saving info to '%s'" % path)  
         np.save(path, next_stage_info)
 
-
-enc = PreBertEncoder()
-enc.PrimaryFiltering()
-enc.LazyBuildData()
-enc.InitializeBertTokenizer()
-enc.ProcessDataset()
-enc.Save(hparams['data_path'])
+if __name__ == "__main__":
+    enc = PreBertEncoder()
+    enc.PrimaryFiltering()
+    enc.LazyBuildData()
+    enc.InitializeBertTokenizer()
+    enc.ProcessDataset()
+    enc.Save(hparams['data_path'])

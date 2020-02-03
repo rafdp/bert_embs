@@ -73,9 +73,9 @@ class Model():
         ##############################
         ## post-trained predict stuff
         if predict:
-            #model.load_weights(self.hparams["model_path"])
+            model.load_weights(self.hparams["model_path"]  + sys.argv[2])
             self.model_predict = tf.keras.Model(inputs = self.model_inputs, 
-                                                outputs = self.bert_output)
+                                                outputs = outputs)
             print(self.model_predict.summary())
         else:
             print(model.summary())

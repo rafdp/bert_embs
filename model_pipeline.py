@@ -8,7 +8,15 @@ from tensorflow.keras import backend as K
 import time
 import re
 from keras import metrics
-from hparams_loader import *
+import sys
+import json
+import os
+hparams = json.load(open(sys.argv[1]))
+ESCAPE_INFO = '\033[38;5;209m'
+ESCAPE_TITLE = '\033[38;5;123m'
+ESCAPE_DATA = '\033[38;5;72m'
+ESCAPE_FILE = '\033[38;5;118m'
+ESCAPE_OFF = '\033[0m'
 
 MAX_SEQ_LEN = hparams['max_seq_len']
 BATCH_SIZE = hparams['batch_size']
@@ -133,8 +141,8 @@ model_builder = Model(hparams,
 if "predict" not in hparams:
     hparams["predict"] = False
 
-#model = model_builder.build(hparams["predict"])
-model = model_builder.build(True)
+model = model_builder.build(hparams["predict"])
+#model = model_builder.build(True)
 
 """
 out = tf.keras.layers.Conv1D(128, 2, activation='relu', padding='same')(bert_output)
